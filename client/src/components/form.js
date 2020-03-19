@@ -4,6 +4,7 @@ import axios from 'axios'
 const Form = ({method, url, initialState, postSubmission}) => {
 
     const [formState, setFormState] = useState(initialState)
+    const [errors, setErrors] = useState(0);
 
     const onChangeHandler = e => {
         setFormState({
@@ -19,12 +20,22 @@ const Form = ({method, url, initialState, postSubmission}) => {
             data: formState
         })
             .then(res=>postSubmission(res))
-            .catch(err=>console.log(err))
+            .catch(err=>{
+            const errorResponse = err.response.data.errors;
+            const errorArr=[];
+            for (const key of Object.keys(errorResponse)){
+                errorArr.push(errorResponse[key].message)
+            }
+            setErrors(errorArr);
+        })   
     }
 
     return (
         <>
             <form onSubmit={onSubmitHandler}>
+                {errors!== 0 && errors.map((error, index)=>
+                    <p key={index}>{error}</p>
+                )}
                 <label>Name:</label> 
                 <br/>
                 <input name="name" value={formState.name} onChange={onChangeHandler}/>
