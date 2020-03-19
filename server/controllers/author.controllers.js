@@ -3,11 +3,11 @@ const { Author } = require('../models/author.models');
 module.exports.create = (request, response) => {
     Author.create(request.body)
         .then(newAuth => response.json(newAuth))
-        .catch(err=>response.json(err));
+        .catch(err=>response.status(400).json(err));
 }
 
 module.exports.getAll = (_, res) => {
-    Author.find()
+    Author.find().sort({name:'asc'})
         .then(list=>res.json(list))
         .catch(err=>res.json(err));
 }
@@ -19,13 +19,13 @@ module.exports.deleteOne = (req,res) => {
 }
 
 module.exports.updateOne = (req,res) => {
-    Author.updateOne({_id:req.params.id}, req.body)
+    Author.updateOne({_id:req.params.id}, req.body, {runValidators:true} )
         .then(updatedAuth => res.json(updatedAuth))
-        .catch(err=>res.json({message:err.message}))
+        .catch(err=>res.status(400).json(err));
 }
 
 module.exports.getOne = (req,res) => {
     Author.findOne({_id:req.params.id})
         .then(auth => res.json(auth))
-        .catch(err=>res.json({message:err.message}))
+        .catch(err=>res.status(400).json(err))
 }
