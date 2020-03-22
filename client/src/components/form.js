@@ -8,6 +8,7 @@ const Form = ({method, url, initialState, postSubmission}) => {
 
     const onChangeHandler = e => {
         setFormState({
+            ...formState,
             [e.target.name]:e.target.value
         })
     }
@@ -34,12 +35,14 @@ const Form = ({method, url, initialState, postSubmission}) => {
         <>
             <form onSubmit={onSubmitHandler}>
                 {errors!== 0 && errors.map((error, index)=>
-                    <p key={index}>{error}</p>
+                    <p style={{color:'red'}}key={index}>{error}</p>
                 )}
-                <label>Name:</label> 
-                <br/>
+                <label>Name:</label> {" "}
                 <input name="name" value={formState.name} onChange={onChangeHandler}/>
-                <button>Cancel</button>
+                <br/>
+                <label>Genre:</label> {" "}
+                <input name="genre" value={formState.genre} onChange={onChangeHandler}/>
+                <br/>
                 <input type="submit" value="Submit"/>
             </form>
         </>

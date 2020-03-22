@@ -1,4 +1,5 @@
 const { Author } = require('../models/author.models');
+const GroupController  = require('../controllers/group.controllers')
 
 module.exports.create = (request, response) => {
     Author.create(request.body)
@@ -19,7 +20,7 @@ module.exports.deleteOne = (req,res) => {
 }
 
 module.exports.updateOne = (req,res) => {
-    Author.updateOne({_id:req.params.id}, req.body, {runValidators:true} )
+    Author.updateOne({_id:req.params.id}, req.body, {new:true,runValidators:true} )
         .then(updatedAuth => res.json(updatedAuth))
         .catch(err=>res.status(400).json(err));
 }
@@ -27,5 +28,12 @@ module.exports.updateOne = (req,res) => {
 module.exports.getOne = (req,res) => {
     Author.findOne({_id:req.params.id})
         .then(auth => res.json(auth))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.updateStatus = (req,res)=>{
+    Author.updateOne({_id:req.params.id}, {$set:{status:req.body.status}},
+        {new:true, runValidators:true})
+        .then(updatedAuth=>res.json(updatedAuth))
         .catch(err=>res.status(400).json(err))
 }
