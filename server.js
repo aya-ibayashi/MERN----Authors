@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 require('./server/routes/author.routes')(app);
-
+require('./server/routes/group.routes')(app);
 
 app.listen(8000,()=>{
     console.log("Listening to port 8000")

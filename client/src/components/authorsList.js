@@ -14,6 +14,9 @@ function AuthorsList({list, removeFromDom}){
                     Author
                 </th>
                 <th>
+                    Preferred Genre
+                </th>
+                <th>
                     Actions available
                 </th>
             </tr>
@@ -24,6 +27,9 @@ function AuthorsList({list, removeFromDom}){
                 <tr key={author._id}>
                     <td>
                         {author.name}
+                    </td>
+                    <td>
+                        {author.genre}
                     </td>
                     <td>
                         <Link to={`/authors/edit/${author._id}`}>Edit</Link>

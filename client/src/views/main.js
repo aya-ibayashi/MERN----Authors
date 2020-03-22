@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import AuthorsList from '../components/authorsList'
-import { Link } from '@reach/router'
+import {Link} from '@reach/router'
 
 function Main(){
 
@@ -24,8 +24,11 @@ function Main(){
     }
 
     return (
-        <div>
-            <Link to="/authors/new">Add an Author</Link>
+        <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+            <h3>
+                <Link to='/authors/'>List</Link>{"  "} | 
+                {" "}<Link to='/authors/new'>Add Author</Link>
+            </h3>
             {loaded && <AuthorsList list={list} removeFromDom={removeFromDom}/>}
         </div>
     )

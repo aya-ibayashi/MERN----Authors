@@ -6,4 +6,5 @@ module.exports = app => {
     app.get("/api/authors", AuthorController.getAll),
     app.delete("/api/authors/delete/:id", AuthorController.deleteOne),
     app.put("/api/authors/update/:id", AuthorController.updateOne)
+    app.put("/api/authors/update/status/:id",AuthorController.updateStatus)
 }
