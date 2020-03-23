@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
-import { Router, Link } from '@reach/router'
+import { Router, Link, navigate } from '@reach/router'
 import NewAuthor from '../src/views/newAuthor'
 import EditAuthor from '../src/views/editAuthor'
 import Main from '../src/views/main'
 import GroupList from '../src/views/groupList'
+import RegistrationForm from '../src/views/register'
+import Login from '../src/views/login'
+import axios from 'axios'
 
 function App() {
 
@@ -19,6 +22,10 @@ function App() {
           <NewAuthor path="/new"/>
           <Main path="/"/>
           <EditAuthor path="/edit/:id"/>
+        </Router>
+        <Router>
+          <RegistrationForm path="/register/"/>
+          <Login path="/login"/>
         </Router>
     </div>
   );

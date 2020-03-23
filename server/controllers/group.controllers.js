@@ -2,6 +2,7 @@ const { Group } = require('../models/group.models')
 const { Author } = require('../models/author.models')
 const AuthorController = require('../controllers/author.controllers')
 
+
 module.exports.getOne = (req, res) => {
     Group.findOne({number:req.params.num})
         .populate('authors')
