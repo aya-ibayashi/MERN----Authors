@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link } from '@reach/router'
+import LogoutButton from '../components/logoutButton'
 
 const GroupList = ({num}) => {
 
     const [list, setList] = useState(null);
 
     useEffect(()=>{
-        axios.get("http://localhost:8000/api/groups/"+ num)
+        axios.get("http://localhost:8000/api/groups/"+ num, {
+            withCredentials:true
+        })
             .then(res=>{setList(res.data.authors);
                         console.log(res.data)})
             .catch(err=>console.log(err))
@@ -21,7 +24,7 @@ const GroupList = ({num}) => {
         axios.put("http://localhost:8000/api/authors/update/status/"+ e.target.value,
         {"status": status})
             .then(res=>
-                axios.get("http://localhost:8000/api/groups/"+ num)
+                axios.get("http://localhost:8000/api/groups/"+ num, {withCredentials:true})
                             .then(res=>setList(res.data.authors))
                             .catch(err=>console.log(err)))
             .catch(err=>console.log(err))
@@ -30,7 +33,7 @@ const GroupList = ({num}) => {
     const removeAuthor = e => {
         const { value } = e.target;
         axios.put("http://localhost:8000/api/groups/"+ num + "/remove/" + value)
-            .then((res)=>axios.get("http://localhost:8000/api/groups/"+ num))
+            .then((res)=>axios.get("http://localhost:8000/api/groups/"+ num, {withCredentials: true}))
                         .then(res=>{setList(res.data.authors);
                                     console.log(res.data)})
                         .catch(err=>console.log(err))
@@ -38,6 +41,7 @@ const GroupList = ({num}) => {
 
     return (
         <div>
+            <LogoutButton/>
             <h2>Author Status - Group {num}</h2>
             <p>
                 <Link to="/status/groups/1">Group 1</Link>  |  
